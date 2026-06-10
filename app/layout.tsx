@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Bebas_Neue, Inter, Space_Mono } from 'next/font/google'
+import { Bebas_Neue, Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 
 const bebasNeue = Bebas_Neue({
@@ -13,9 +13,9 @@ const inter = Inter({
   subsets: ['latin'],
 })
 
-const spaceMono = Space_Mono({
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
+const plusJakarta = Plus_Jakarta_Sans({
+  weight: ['400', '500', '700'],
+  variable: '--font-jakarta',
   subsets: ['latin'],
 })
 
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="id"
-      className={`${bebasNeue.variable} ${inter.variable} ${spaceMono.variable}`}
+      className={`${bebasNeue.variable} ${inter.variable} ${plusJakarta.variable}`}
     >
       <body>{children}</body>
     </html>

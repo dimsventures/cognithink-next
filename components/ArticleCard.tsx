@@ -3,103 +3,88 @@ import { Article } from '@/lib/types'
 import { formatShortDate } from '@/lib/utils'
 
 interface ArticleCardProps {
-  article: Article
+  article: Partial<Article>
   featured?: boolean
-  index?: number
 }
 
-export default function ArticleCard({ article, featured = false, index = 0 }: ArticleCardProps) {
-  if (featured) {
-    return (
-      <Link href={`/artikel/${article.slug}`} style={{
-        background: 'var(--dark)', border: '1px solid rgba(255,255,255,0.06)',
-        padding: '40px', position: 'relative', overflow: 'hidden',
-        textDecoration: 'none', color: 'inherit', display: 'flex',
-        flexDirection: 'column', justifyContent: 'flex-end', minHeight: '340px',
-        transition: 'all 0.3s',
+export default function ArticleCard({ article, featured = false }: ArticleCardProps) {
+  return (
+    <Link href={`/artikel/${article.slug}`} style={{ display: 'block', textDecoration: 'none' }}>
+      <article className="article-card" style={{
+        padding: featured ? '32px' : '24px',
+        display: 'flex', flexDirection: 'column', gap: '14px',
+        height: '100%', minHeight: featured ? '240px' : '180px',
       }}>
-        <span style={{
-          fontFamily: 'var(--font-bebas)', fontSize: '96px',
-          color: 'rgba(220,30,30,0.08)', lineHeight: 1,
-          position: 'absolute', top: '16px', right: '20px',
-        }}>01</span>
+        {/* Badge */}
         {article.badge && (
-          <span style={{
-            fontFamily: 'var(--font-space-mono)', fontSize: '9px', letterSpacing: '2px',
-            textTransform: 'uppercase', color: 'var(--red)', marginBottom: '12px',
-            display: 'block',
-          }}>{article.badge}</span>
+          <div style={{
+            fontFamily: 'var(--font-mono)', fontSize: '9px',
+            letterSpacing: '2px', textTransform: 'uppercase',
+            color: 'var(--red)',
+          }}>
+            {article.badge}
+          </div>
         )}
+
+        {/* Title */}
         <h3 style={{
-          fontFamily: 'var(--font-bebas)', fontSize: '32px', lineHeight: 1.1,
-          marginBottom: '12px', color: '#fff',
-        }}>{article.title}</h3>
-        {article.description && (
-          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6, marginBottom: '16px' }}>
+          fontSize: featured ? '20px' : '15px',
+          fontWeight: 700, lineHeight: 1.35,
+          letterSpacing: '-0.01em', color: 'var(--text)',
+          flex: 1,
+        }}>
+          {article.title}
+        </h3>
+
+        {/* Description */}
+        {featured && article.description && (
+          <p style={{
+            fontSize: '13px', lineHeight: 1.65,
+            color: 'var(--text-muted)',
+          }}>
             {article.description}
           </p>
         )}
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <span style={{ fontFamily: 'var(--font-space-mono)', fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)' }}>
-            {article.published_at ? formatShortDate(article.published_at) : ''}
-          </span>
-          {article.read_time && (
-            <span style={{ fontFamily: 'var(--font-space-mono)', fontSize: '10px', color: 'rgba(255,255,255,0.3)' }}>
-              {article.read_time}
-            </span>
+
+        {/* Footer */}
+        <div style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          paddingTop: '14px', borderTop: '1px solid var(--border)',
+        }}>
+          <div style={{ display: 'flex', gap: '14px' }}>
+            {article.published_at && (
+              <span style={{
+                fontFamily: 'var(--font-mono)', fontSize: '9px',
+                letterSpacing: '1px', textTransform: 'uppercase',
+                color: 'var(--text-subtle)',
+              }}>
+                {formatShortDate(article.published_at)}
+              </span>
+            )}
+            {article.read_time && (
+              <span style={{
+                fontFamily: 'var(--font-mono)', fontSize: '9px',
+                letterSpacing: '1px', textTransform: 'uppercase',
+                color: 'var(--text-subtle)',
+              }}>
+                {article.read_time}
+              </span>
+            )}
+          </div>
+
+          {/* Urgency dots */}
+          {article.urgensi && (
+            <div style={{ display: 'flex', gap: '3px' }}>
+              {[1, 2, 3, 4, 5].map(i => (
+                <div key={i} style={{
+                  width: '5px', height: '5px', borderRadius: '50%',
+                  background: i <= (article.urgensi || 0) ? 'var(--red)' : 'var(--border-strong)',
+                }} />
+              ))}
+            </div>
           )}
         </div>
-        <UrgensiStars value={article.urgensi} />
-      </Link>
-    )
-  }
-
-  return (
-    <Link href={`/artikel/${article.slug}`} style={{
-      background: 'var(--dark)', border: '1px solid rgba(255,255,255,0.06)',
-      padding: '28px', textDecoration: 'none', color: 'inherit',
-      display: 'flex', flexDirection: 'column', gap: '12px', transition: 'all 0.3s',
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        {article.badge && (
-          <span style={{
-            fontFamily: 'var(--font-space-mono)', fontSize: '9px', letterSpacing: '2px',
-            textTransform: 'uppercase', color: 'var(--red)',
-          }}>{article.badge}</span>
-        )}
-        <span style={{
-          fontFamily: 'var(--font-bebas)', fontSize: '48px',
-          color: 'rgba(220,30,30,0.08)', lineHeight: 1,
-        }}>{String(index + 1).padStart(2, '0')}</span>
-      </div>
-      <h3 style={{
-        fontFamily: 'var(--font-bebas)', fontSize: '22px', lineHeight: 1.15,
-        color: '#fff',
-      }}>{article.title}</h3>
-      {article.description && (
-        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.55, flexGrow: 1 }}>
-          {article.description}
-        </p>
-      )}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
-        <span style={{ fontFamily: 'var(--font-space-mono)', fontSize: '10px', color: 'rgba(255,255,255,0.3)', letterSpacing: '1px' }}>
-          {article.published_at ? formatShortDate(article.published_at) : ''}
-        </span>
-        <UrgensiStars value={article.urgensi} small />
-      </div>
+      </article>
     </Link>
-  )
-}
-
-function UrgensiStars({ value, small }: { value: number; small?: boolean }) {
-  return (
-    <div style={{ display: 'flex', gap: '3px', marginTop: small ? 0 : '8px' }}>
-      {[1, 2, 3, 4, 5].map(i => (
-        <span key={i} style={{
-          fontSize: small ? '8px' : '10px',
-          color: i <= value ? 'var(--red)' : 'rgba(255,255,255,0.15)',
-        }}>●</span>
-      ))}
-    </div>
   )
 }
