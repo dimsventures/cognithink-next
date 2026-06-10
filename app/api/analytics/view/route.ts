@@ -19,15 +19,14 @@ export async function POST(req: NextRequest) {
     })
 
     // Increment view_count
-    await supabase.rpc('increment_view_count', { article_id: articleId }).catch(() => {
+    const { error: rpcError } = await supabase.rpc('increment_view_count', { article_id: articleId })
+    if (rpcError) {
       // Fallback jika rpc belum ada
-      supabase.from('articles').select('view_count').eq('id', articleId).single()
-        .then(({ data }) => {
-          if (data) {
-            supabase.from('articles').update({ view_count: (data.view_count || 0) + 1 }).eq('id', articleId)
-          }
-        })
-    })
+      const { data } = await supabase.from('articles').select('view_count').eq('id', articleId).single()
+      if (data) {
+        await supabase.from('articles').update({ view_count: (data.view_count || 0) + 1 }).eq('id', articleId)
+      }
+    }
 
     return NextResponse.json({ success: true })
   } catch (err) {
