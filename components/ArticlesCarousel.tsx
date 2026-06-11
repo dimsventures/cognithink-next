@@ -184,15 +184,31 @@ export default function ArticlesCarousel({ articles }: Props) {
         })}
       </div>
 
-      {/* Progress dots */}
-      <div style={{ display: 'flex', gap: '8px', marginTop: '32px', justifyContent: 'center' }}>
-        {articles.map((_, i) => (
-          <div key={i} style={{
-            width: i === activeIndex ? '22px' : '6px',
-            height: '6px', borderRadius: '3px',
-            background: i === activeIndex ? 'var(--red)' : 'var(--border-strong)',
-            transition: 'width 0.3s ease, background 0.3s ease',
-          }} />
+      {/* Progress dots — clickable */}
+      <div style={{ display: 'flex', gap: '4px', marginTop: '28px', justifyContent: 'center' }}>
+        {articles.map((a, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Lihat artikel: ${a.title}`}
+            aria-current={i === activeIndex}
+            onClick={() => {
+              const next = Math.min(MAX_PAN, i * CARD_STEP)
+              panOffsetRef.current = next
+              setPanOffset(next)
+            }}
+            style={{
+              border: 'none', background: 'transparent',
+              padding: '6px 2px', cursor: 'pointer', display: 'flex',
+            }}
+          >
+            <span style={{
+              width: i === activeIndex ? '22px' : '6px',
+              height: '6px', borderRadius: '3px',
+              background: i === activeIndex ? 'var(--red)' : 'var(--border-strong)',
+              transition: 'width 0.3s ease, background 0.3s ease',
+            }} />
+          </button>
         ))}
       </div>
 

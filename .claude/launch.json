@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cognithink-dev",
+      "runtimeExecutable": "wsl",
+      "runtimeArgs": ["-d", "ubuntu-24.04", "-e", "bash", "-c", "cd /home/adimas/cognithink-next/.claude/worktrees/bold-elgamal-6c806c && npm run dev -- -p 3790"],
+      "port": 3790,
+      "autoPort": false
+    }
+  ]
+}

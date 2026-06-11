@@ -150,7 +150,7 @@ export default async function ArtikelDetailPage({ params }: Props) {
                 letterSpacing: '1px', textTransform: 'uppercase',
                 color: 'var(--text-subtle)',
               }}>
-                {article.view_count} views
+                {article.view_count}× dibaca
               </span>
             )}
           </div>

@@ -4,7 +4,7 @@ import './globals.css'
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
-  variable: '--font-bebas',
+  variable: '--font-bebas-neue',
   subsets: ['latin'],
 })
 

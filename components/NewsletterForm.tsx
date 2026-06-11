@@ -46,7 +46,8 @@ export default function NewsletterForm({ compact = false }: { compact?: boolean 
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', maxWidth: compact ? '100%' : '480px' }}>
+    <form onSubmit={handleSubmit} style={{ maxWidth: compact ? '100%' : '480px' }}>
+      <div style={{ display: 'flex', gap: '10px' }}>
       <input
         type="email"
         value={email}
@@ -78,8 +79,9 @@ export default function NewsletterForm({ compact = false }: { compact?: boolean 
       >
         {status === 'loading' ? '...' : 'Subscribe'}
       </button>
+      </div>
       {status === 'error' && (
-        <span style={{ fontSize: '12px', color: 'rgba(255,100,100,0.8)', alignSelf: 'center' }}>{message}</span>
+        <div style={{ fontSize: '12px', color: 'rgba(255,100,100,0.8)', marginTop: '10px' }}>{message}</div>
       )}
     </form>
   )

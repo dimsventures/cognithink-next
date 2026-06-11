@@ -33,6 +33,7 @@ export default function StickyFadeSection({ id, scrollVh = 200, children }: Prop
         setOpacity(Math.max(0, 1 - p))
       }
     }
+    onScroll() // sync opacity on mount (e.g. reload mid-page)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])

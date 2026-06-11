@@ -16,10 +16,17 @@
   --text-muted: rgba(237, 235, 231, 0.45);
   --text-subtle: rgba(237, 235, 231, 0.2);
   --red: #D41E1E;
+  --red-hover: #EF3527;
+
+  /* Aliases used across dashboard/login/footer */
+  --black: #0D0D0D;
+  --dark: #161616;
+  --orange: var(--red-hover);
 
   --font-bebas: var(--font-bebas-neue), 'Bebas Neue', sans-serif;
   --font-sans: var(--font-inter), 'Inter', -apple-system, sans-serif;
   --font-mono: var(--font-jakarta), 'Plus Jakarta Sans', sans-serif;
+  --font-space-mono: var(--font-mono);
 }
 
 /* Light theme — article reading */
