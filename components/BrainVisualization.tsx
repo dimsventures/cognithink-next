@@ -8,7 +8,7 @@ export default function BrainVisualization() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d')!
     if (!ctx) return
 
     const DPR = Math.min(window.devicePixelRatio || 1, 2)
@@ -46,7 +46,6 @@ export default function BrainVisualization() {
 
     // ── Check if point is inside brain ────────────────────────
     function inBrain(x: number, y: number): boolean {
-      if (!ctx) return false
       return ctx.isPointInPath(brainPath, x, y)
     }
 
