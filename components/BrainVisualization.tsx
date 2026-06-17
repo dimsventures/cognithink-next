@@ -46,6 +46,7 @@ export default function BrainVisualization() {
 
     // ── Check if point is inside brain ────────────────────────
     function inBrain(x: number, y: number): boolean {
+      if (!ctx) return false
       return ctx.isPointInPath(brainPath, x, y)
     }
 
