@@ -34,6 +34,11 @@
   --text-subtle: #B5B0AA;
 }
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #D41E1E; }
+  50%       { opacity: 0.5; box-shadow: 0 0 14px #D41E1E; }
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
